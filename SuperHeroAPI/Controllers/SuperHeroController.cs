@@ -75,7 +75,51 @@ namespace SuperHeroAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetHeroByAlias")]
+        public async Task<ActionResult<SuperHero>> GetHeroByAlias(string name)
+        {
+            var hero = heros.Find(x => x.Alias == name);
 
+            if (hero != null)
+            {
+                return Ok(hero);
+            }
+            else
+            {
+                return NotFound("No hero with that Alias found.");
+            }
+        }
+        [HttpGet]
+        [Route("GetHerosByFirstName")]
+        public async Task<ActionResult<List<SuperHero>>> GetHerosByFirstName(string name)
+        {
+            var herolist = heros.FindAll(x => x.FirstName == name);
+
+            if (herolist != null)
+            {
+                return Ok(herolist);
+            }
+            else
+            {
+                return NotFound("No heros with that name found.");
+            }
+        }
+        [HttpGet]
+        [Route("GetHerosByLastName")]
+        public async Task<ActionResult<List<SuperHero>>> GetHerosByLastName(string name)
+        {
+            var herolist = heros.FindAll(x => x.LastName == name);
+
+            if (herolist != null)
+            {
+                return Ok(herolist);
+            }
+            else
+            {
+                return NotFound("No heros with that name found.");
+            }
+        }
         [HttpPost]
         [Route("AddHero")]
         public async Task<ActionResult<List<SuperHero>>> AddHero(SuperHero hero)
